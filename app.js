@@ -26,7 +26,16 @@ connection.connect(function(err) {
   if (err) throw err;
   runSearch();
 });
-
+// const employeeOptions = [
+//     "John Stamos",
+//     "Mary Walters",
+//     "George Washington",
+//     "Meghan Kelly",
+//     "Tom Hanks",
+//     "Dolly Parton",
+//     "Oprah Winfrey",
+//     "exit"
+// ];
 
 
 function runSearch() {
@@ -80,17 +89,42 @@ function empByDeptV() {
 
     .then(function (answer) {
      
-      var query = "SELECT * FROM emp_DB. employee, emp_DB.emp_roles";
+      var query = "SELECT * FROM employee INNER JOIN emp_roles ON employee.id=emp_roles.id";
         
       connection.query(query, { employer: answer.employer },
         function (err, res) {
-          console.table(res)
-        }
-              
-      );
-                  
+          for (var i = 0; i < res.length; i++) {
+            console.table(
+              "Department: " + res[i].role_title +
+              " || Employee Name: " +
+              res[i].first_name + " "+ res[i].last_name);
+           
+          };
+
+        });
     });
 }
+    
 empByDeptV()
+
+// function empByDeptV() {
+//   inquirer
+//     .prompt({
+//       name: "employer",
+//       type: "input",
+//       message: "?"
+//     })
+
+
+//  connection.query(query, function(err, res) {
+//     for (var i = 0; i < res.length; i++) {
+//       console.log(res[i].artist);
+//     }
+     
+      // var query = "SELECT * FROM employee INNER JOIN emp_roles ON employee.id=emp_roles.id";
+      // "SELECT first_name, last_name,role_id FROM employee";
+      // "SELECT * FROM emp_DB.employee, emp_DB.emp_roles";
+        
+
 
 // "role:" + res.role_title + "|| first-name: " + res.first_name + " || last-name:" + res.last_name);
