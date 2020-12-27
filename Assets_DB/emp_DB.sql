@@ -16,7 +16,7 @@ CREATE TABLE emp_roles (
   role_title VARCHAR(30) NOT NULL,
   salary DECIMAL(10,4) NOT NULL,
   dept_id INTEGER NOT NULL,
-  FOREIGN KEY (dept_id) REFERENCES employee(id),
+  FOREIGN KEY (dept_id) REFERENCES department(id),
   PRIMARY KEY (id)
 );
 
@@ -28,11 +28,11 @@ CREATE TABLE employee (
   role_id INTEGER NOT NULL,
   FOREIGN KEY (role_id) REFERENCES emp_roles(id),
   manager_id INTEGER NULL,
-  FOREIGN KEY (manager_id) REFERENCES employee(id),
+  FOREIGN KEY (manager_id) REFERENCES department(id),
   PRIMARY KEY (id)
 );
 
--- SEED DATA
+
 
 select * from employee;
 select * from emp_roles;
@@ -57,42 +57,28 @@ select * from department;
 
 
 INSERT into emp_roles (role_title , salary, dept_id)
-VALUES ("Sales Lead", 45.000, 1);
+VALUES ("Sales Associate", 65.000, 1);
 INSERT into emp_roles (role_title, salary, dept_id)
-VALUES ("Salesperson", 35.000, 2);
+VALUES ("Software Engineer", 150.000, 2);
 INSERT into emp_roles (role_title, salary, dept_id)
-VALUES ("Lead Engineer", 43.000, 3);
+VALUES ("Sr. Accountant", 120.000, 3);
 INSERT into emp_roles (role_title, salary, dept_id)
-VALUES ("Accountant", 50.000, 4);
+VALUES ("HR Manager", 85.000, 4);
 INSERT into emp_roles (role_title, salary, dept_id)
-VALUES ("Legal", 50.000, 5);
-INSERT into emp_roles (role_title, salary, dept_id)
-VALUES ("Director", 65.000, 6);
+VALUES ("Sales Manager", 90.000, 5);
+
 
 select * from emp_roles;
 
 -- employee data
 
 INSERT into employee (first_name, last_name, role_id, manager_id)
-values ("John", "Stamos", 4, NULL); 
+values ("John", "Stamos", 1, 2); 
 INSERT into employee (first_name, last_name, role_id, manager_id)
-values ("Jim", "Baker", 4, NULL);
+values ("Jim", "Baker", 2, 3);
 INSERT into employee (first_name, last_name, role_id, manager_id)
-values ("George", "Washington", 6, 2);
+values ("George", "Washington", 3, 4);
 INSERT into employee (first_name, last_name, role_id, manager_id)
-values ("Meghan", "Kelly", 3, NULL);
+values ("Meghan", "Kelly", 5, 5);
 INSERT into employee (first_name, last_name, role_id, manager_id)
-values ("Tom", "Hanks", 4, NULL);
-INSERT into employee (first_name, last_name, role_id, manager_id)
-values ("Dolly", "Parton", 4, 2);
-
-select * from employee;
-
-
--- NOTES on FK ID
--- constraint fk_department_id foreign key (department_id) references department(id)
-  
-  -- manager_id - INT to hold reference to another employee that manages the employee 
-  -- being Created. This field may be null if the employee has no manager
-
-
+values ("Tom", "Hanks", 1, 1);

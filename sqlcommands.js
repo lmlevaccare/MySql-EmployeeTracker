@@ -1,5 +1,5 @@
 const connection = require("./connection");
-newEmployee=[]
+
 class DB {
     constructor(connection) {
         this.connection=connection

@@ -39,11 +39,11 @@ function runSearch() {
 
         case "Would you like to add a New Employee":
         addEmp();
-        break;
-
-        // case  "Remove Employee?" :
-        // removeEmp();
         // break;
+
+        case  "Remove Employee?" :
+        removeEmp();
+        break;
           
         // case  "Update an Employee's Manager?" :
         // updateEmp();
@@ -74,17 +74,30 @@ function runSearch() {
   runSearch()
 
  }
-   async function addEmp() {
+// async function addEmp() {
 
-  const addRole= await DB.addEmpRole()
-        
-  console.table(addRole);
+//   const addingEmpRole = await DB.addEmpRole() 
+//   let newEmployee = []
 
-  runSearch()
+// for (let i = 0; i < newEmployee.length; i++) {
+//     if (newEmployee[i]) {
+      
+//       addingEmpRole.push(newEmployee[i]);
+       
+//     }
+  
+//     console.table(addingEmpRole);
 
-}
+//     runSearch()
+     
+   
+//   }
 
+// };
 
+// let greeting =[]
+// names.forEach(name => { return greeting.push(name)
+// })
     
   runSearch()
 
