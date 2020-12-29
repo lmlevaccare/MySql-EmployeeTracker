@@ -2,7 +2,7 @@
 // const PORT = process.env.PORT || 5000;
 // const app = express();
 // app.listen(PORT, () => console.log(`server started ${PORT}`));
-const DB = require('./sqlcommands');
+const DB = require('./sqlcom');
 
 
 const mysql = require('mysql');
@@ -10,6 +10,10 @@ var inquirer = require("inquirer");
 const consoletable = require("console.table");
 
 const connection = require('./connection');
+const { empRoles } = require('./sqlcom');
+const {employee} =require('./sqlcom'); 
+
+// node
 
 
 
@@ -22,9 +26,9 @@ function runSearch() {
       choices: [
         "View all Employees By Department?",
         "View all Employees By Manager?",
-        "Would you like to add a New Employee?",
-        "Remove Employee?",
-        "Update an Employee's Manager?"
+        "Add a New Employee?",
+        "Remove Employee?"
+        // "Update an Employee's Manager?"
       ]
     })
     .then(function(answer) {
@@ -36,10 +40,11 @@ function runSearch() {
         case "View all Employees By Manager?":
         empByMangV();
         break;
-
-        case "Would you like to add a New Employee":
+        
+        
+        case "Add a New Employee":
         addEmp();
-        // break;
+        break;
 
         case  "Remove Employee?" :
         removeEmp();
@@ -63,47 +68,86 @@ function runSearch() {
 
 }
     
-  // runSearch()
+
 
  async function empByMangV() {
 
-  const managers= await DB.mangRoles()
-        
+  const managers= await DB.mangRoles() 
   console.table(managers);
-
   runSearch()
 
  }
-// async function addEmp() {
+ 
+ function addEmp() {
+  const addNew =
+    [{
+      type: 'input',
+      message: 'Add Employee firstname, lastname, roleId(1-5), managerID(1-5).',
+      name: 'new'
+    }]
+   inquirer.prompt(addNew)
+     .then(
+       anwsers => {
+         const add = { employee }(anwsers.first_name, anwsers.last_name, anwsers.role_id, anwsers.manager_id)
+        add = DB.addEmpRole()
+        runSearch()
 
-//   const addingEmpRole = await DB.addEmpRole() 
-//   let newEmployee = []
+ 
+        console.table(add);
 
-// for (let i = 0; i < newEmployee.length; i++) {
-//     if (newEmployee[i]) {
-      
-//       addingEmpRole.push(newEmployee[i]);
-       
-//     }
   
-//     console.table(addingEmpRole);
+      }
+      
+        )
+};
 
-//     runSearch()
-     
-   
-//   }
-
-// };
-
-// let greeting =[]
-// names.forEach(name => { return greeting.push(name)
-// })
+    
     
   runSearch()
 
 
 
+//  inquirer.prompt(
+//     [{
+//       type: 'list',
+//       message: 'Which employee would you like to add next?',
+//       name: 'role',
+//       choices: ['Jack', 'Priya', 'Amy', 'I do not want to add further employees']
+//     }]
 
+//       .then(
+//         anwsers => {
+                
+//           if (anwsers.role === "Jack") {
+//             DB.addEmpRole()
+           
+//           }
+//           if (anwsers.role === "Priya") {
+//             DB.addEmpRole()
+           
+                
+//           }
+                
+//           if (anwsers.role === "Amy") {
+//             DB.addEmpRole(employees)
+           
+                         
+//           }
+                  
+//           else if (anwsers.role === "I do not want to add further employees") {
+//             console.table(employees + newEmpsAdded);
+                
+                        
+//           }
+//           runSearch()
+//         }
+    
+//       )
+
+
+  
+//  );
+      
 
 // function empByMangV() {
 //   inquirer

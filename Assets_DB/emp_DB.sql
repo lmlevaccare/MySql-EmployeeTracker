@@ -82,3 +82,15 @@ INSERT into employee (first_name, last_name, role_id, manager_id)
 values ("Meghan", "Kelly", 5, 5);
 INSERT into employee (first_name, last_name, role_id, manager_id)
 values ("Tom", "Hanks", 1, 1);
+
+
+
+INSERT INTO employee (first_name, last_name,role_id, manager_id)
+VALUES ("Jack", "Black ", 3, 2);
+
+INSERT INTO employee (first_name, last_name,role_id, manager_id)
+VALUES ("Priya", "Thomas", 2, 3);
+
+
+INSERT INTO employee (first_name, last_name,role_id, manager_id)
+VALUES ("Amy", "Langerman", 5, 4);
