@@ -3,15 +3,14 @@
 // const app = express();
 // app.listen(PORT, () => console.log(`server started ${PORT}`));
 const DB = require('./sqlcom');
-
+const cli = require('cli-table');
 
 const mysql = require('mysql');
 var inquirer = require("inquirer");
 const consoletable = require("console.table");
 
 const connection = require('./connection');
-const { empRoles } = require('./sqlcom');
-const {employee} =require('./sqlcom'); 
+// const {employee} =require('./sqlcom'); 
 
 // node
 
@@ -31,81 +30,82 @@ function runSearch() {
         // "Update an Employee's Manager?"
       ]
     })
-    .then(function(answer) {
-        switch (answer.action) {
+    .then(function (answer) {
+      switch (answer.action) {
         case "View all Employees By Department?":
-        empByDeptV();
-        break;
+          empByDeptV();
+          break;
 
         case "View all Employees By Manager?":
-        empByMangV();
-        break;
-        
-        
+          empByMangV();
+          break;
+      
         case "Add a New Employee":
-        addEmp();
-        break;
+          addEmp();
+          break;
 
-        case  "Remove Employee?" :
-        removeEmp();
-        break;
-          
-        // case  "Update an Employee's Manager?" :
-        // updateEmp();
-        // break;
-          
-          
+        case "Remove Employee?":
+          removeEmp();
+          break;
       }
-    });
-}
- async function empByDeptV() {
+    }
+      // case  "Update an Employee's Manager?" :
+      // updateEmp();
+      // break;
+          
+    
+    )
+  }
+     
+  async function empByDeptV() {
 
-  const employees= await DB.empRoles()
+    const employees = await DB.empRoles()
         
-  console.table(employees);
+    console.table(employees);
 
-  runSearch()
+    runSearch()
 
-}
+  }
     
 
 
- async function empByMangV() {
+  async function empByMangV() {
 
-  const managers= await DB.mangRoles() 
-  console.table(managers);
-  runSearch()
+    const managers = await DB.mangRoles()
+    console.table(managers);
+    runSearch()
 
- }
- 
- function addEmp() {
-  const addNew =
-    [{
-      type: 'input',
-      message: 'Add Employee firstname, lastname, roleId(1-5), managerID(1-5).',
-      name: 'new'
-    }]
-   inquirer.prompt(addNew)
-     .then(
-       anwsers => {
-         const add = { employee }(anwsers.first_name, anwsers.last_name, anwsers.role_id, anwsers.manager_id)
-        add = DB.addEmpRole()
-        runSearch()
+  }
+
+  async function addEmp() {
+       const employees = await AddEmployee.addEmpRole()
+        console.table(employees);
+          runSearch()
 
  
-        console.table(add);
+        
 
   
-      }
+        }
       
-        )
-};
+
 
     
     
   runSearch()
 
 
+
+   // const addNew ="INSERT INTO employee (first_name, last_name, role_id, manager_id VALUES ? ('first_name', 'last_name', 'manager', 'role_id', 'manager_id')";
+      // [{
+      //   type: 'input',
+      //   message: 'Add Employee firstname, lastname, roleId(1-5), managerID(1-5).',
+      //   name: 'new'
+      // }]
+    // inquirer.prompt(addNew)
+    //   .then(
+    //     anwsers => {
+    //      employee=(anwsers.first_name, anwsers.last_name, anwsers.role_id, anwsers.manager_id)
 
 //  inquirer.prompt(
 //     [{
