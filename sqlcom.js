@@ -28,7 +28,7 @@ class DB {
 
 }
 class Employee extends DB {
-    constructor(connection, firstName = "", lastName = "", roleId = 0, managerId = 0) {
+    constructor(connection, firstName = "", lastName = "", roleId = 3, managerId = 2) {
         super(connection)
         // this.connection = connection;
         this.first_name = firstName;
@@ -38,29 +38,31 @@ class Employee extends DB {
     }
 
     addEmployee() {
-        employee = new Employee("INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)");
+        let employee = new Employee("INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)");
         return this.connection(employee)(`${this.first_name}
     ${this.last_name} ${this.role_id} ${this.manager_id}`);
-    }
     
 
- deleteRoles() {
-    console.log("Deleting Role ID 1..\n");
-    let query =
-        ("DELETE FROM emp_roles WHERE ?",
+    }
+    // addEmployee()
+
+
+ remove (_role_id) {
+       
+        var query = ("DELETE FROM emp_roles WHERE ?",
         {
             role_id: 1
         });
+             
+        return this.connection.query(query);
      
-     return this.connection.deleteRoles((query));
-        
+    };
+   
 }
-
-}   
+// remove()
 
 
     
-
 
 
 
@@ -72,7 +74,7 @@ module.exports = typeof Employee | DB;
 
 module.exports = new DB(connection);     
 
-// var employee1 = new Employee("INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)");
+
    
 
 

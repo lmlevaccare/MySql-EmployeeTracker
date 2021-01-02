@@ -10,8 +10,6 @@ const { prompt } = require('inquirer');
 // const {employee} =require('./sqlcom'); 
 let team = [];
 
-
-
 function runSearch() {
   inquirer
     .prompt({
@@ -37,7 +35,7 @@ function runSearch() {
           break;
       
         case "Add a New Employee":
-          addEmp();
+          insertEmp();
           break;
 
         case "Remove Employee Role?":
@@ -73,21 +71,42 @@ function runSearch() {
 
   }
 
-async function addEmp() {
-    
-  
-    employee= await addEmployee()
-       
-    team.push(employee)
-               runSearch()
+function insertEmp() {
 
-
-     console.log(team)
-
-
-  
-        }
+  inquirer.prompt({
       
+    type: 'input',
+    message: 'add new employee by first and last name?',
+    name: 'newEmp',
+  
+  })
+    .then(
+      answer => {
+        console.log("Inserting a new employee into data base...\n");
+       employee = connection.query("INSERT INTO employee SET",
+          {
+            first_name: answer.first_name,
+            last_name: answer.last_name,
+            role_id: answer.role_id || 3,
+            manager_id: answer.manager_id || 2
+         },
+         team.push(answer.newEmp)
+    
+
+          
+       );
+         return this.connection.query(team)(`${this.first_name}
+    ${this.last_name} ${this.role_id} ${this.manager_id}`);
+      })
+    
+
+
+     empByDeptV()
+  runSearch()
+  console.log(team)
+}
+        
+    
 
 function removeRole() {
   
@@ -101,14 +120,14 @@ function removeRole() {
   
   })
     .then(
-      anwsers => {
-                
+      function (anwsers) {
+
         if (anwsers.role_id === 1) {
-          deleteRoles()
-          
+          remove();
+
         }
         else {
-          empByDeptV()
+          empByDeptV();
         }
       }
     
@@ -120,16 +139,6 @@ function removeRole() {
 
 
   
-
-    // async function addEmp({employee}) {
-    //   const added = [];
-    //   const deletes = await insertNewEmp({employee})
-    //   added.push(deletes)
-    //   console.table(added);
-    //   runSearch()
-
-  
-    // }
 
    // const addNew ="INSERT INTO employee (first_name, last_name, role_id, manager_id VALUES ? ('first_name', 'last_name', 'manager', 'role_id', 'manager_id')";
       // [{
