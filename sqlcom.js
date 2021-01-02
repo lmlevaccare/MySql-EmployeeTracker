@@ -1,5 +1,5 @@
 
- 
+
 const connection = require("./connection");
 
 class DB {
@@ -11,9 +11,9 @@ class DB {
 
        empRoles() {
     
-        var query = "SELECT employee.first_name, emp_roles.role_title FROM employee LEFT JOIN emp_roles ON employee.role_id=emp_roles.id";
+        var query1 = "SELECT employee.first_name, emp_roles.role_title FROM employee LEFT JOIN emp_roles ON employee.role_id=emp_roles.id";
 
-        return this.connection.query(query)
+        return this.connection.query(query1)
 
     }
     
@@ -35,18 +35,51 @@ class Employee extends DB {
         this.last_name = lastName;
         this.role_id = roleId;
         this.manager_id = managerId;
-        this.addEmployee = function () {
-            return `${this.first_name}
-    ${this.last_name} ${this.role_id} ${this.manager_id}`
-        }
     }
-}       
+
+    addEmployee() {
+        employee = new Employee("INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)");
+        return this.connection(employee)(`${this.first_name}
+    ${this.last_name} ${this.role_id} ${this.manager_id}`);
+    }
+    
+
+ deleteRoles() {
+    console.log("Deleting Role ID 1..\n");
+    let query =
+        ("DELETE FROM emp_roles WHERE ?",
+        {
+            role_id: 1
+        });
+     
+     return this.connection.deleteRoles((query));
+        
+}
+
+}   
+
+
+    
+
+
+
+
+module.exports = typeof Employee | DB;
+        
+
+    
+
+
+module.exports = new DB(connection);     
+
+// var employee1 = new Employee("INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)");
+   
+
+
        
-var employee = new Employee("INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)"
+// var employee1 = new Employee("INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (Victoria, Beckham, 2, 4)");
 
 
-);
-console.log(employee);
 
 
 // class AddEmployee extends DB {
@@ -67,14 +100,5 @@ console.log(employee);
 //         return this.connection.query(this.addEmpRole)
 //     }
 
-
-
-module.exports = typeof Employee | DB;
-        
-
-    
-
-
-module.exports = new DB(connection);     
 
 

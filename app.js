@@ -6,6 +6,7 @@ var inquirer = require("inquirer");
 const consoletable = require("console.table");
 
 const connection = require('./connection');
+const { prompt } = require('inquirer');
 // const {employee} =require('./sqlcom'); 
 let team = [];
 
@@ -21,7 +22,7 @@ function runSearch() {
         "View all Employees By Department?",
         "View all Employees By Manager?",
         "Add a New Employee?",
-        "Remove Employee?"
+        "Remove Employee Role?"
         // "Update an Employee's Manager?"
       ]
     })
@@ -39,8 +40,8 @@ function runSearch() {
           addEmp();
           break;
 
-        case "Remove Employee?":
-          removeEmp();
+        case "Remove Employee Role?":
+          removeRole();
           break;
       }
     }
@@ -72,10 +73,12 @@ function runSearch() {
 
   }
 
-  async function addEmp() {
-    employee= await DB.addEmployee(connection)
+async function addEmp() {
+    
+  
+    employee= await addEmployee()
        
-    team.push(employee.connection)
+    team.push(employee)
                runSearch()
 
 
@@ -86,8 +89,33 @@ function runSearch() {
         }
       
 
+function removeRole() {
+  
+
+  inquirer.prompt({
+      
+    type: 'list',
+    message: 'Which employee role_id would you like to delete?',
+    name: 'role_id',
+    choices: [1, 2, 3, 4, 5]
+  
+  })
+    .then(
+      anwsers => {
+                
+        if (anwsers.role_id === 1) {
+          deleteRoles()
+          
+        }
+        else {
+          empByDeptV()
+        }
+      }
     
-    
+  )
+ runSearch()
+
+}
   runSearch()
 
 
