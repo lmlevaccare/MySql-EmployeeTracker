@@ -28,5 +28,6 @@
   "bugs": {
     "url": "https://github.com/lmlevaccare/MySql-EmployeeTracker/issues"
   },
-  "homepage": "https://github.com/lmlevaccare/MySql-EmployeeTracker#readme"
+  "homepage": "https://github.com/lmlevaccare/MySql-EmployeeTracker#readme",
+  "keywords": []
 }

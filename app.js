@@ -1,7 +1,3 @@
-// const express = require('express');
-// const PORT = process.env.PORT || 5000;
-// const app = express();
-// app.listen(PORT, () => console.log(`server started ${PORT}`));
 const DB = require('./sqlcom');
 const cli = require('cli-table');
 
@@ -11,8 +7,7 @@ const consoletable = require("console.table");
 
 const connection = require('./connection');
 // const {employee} =require('./sqlcom'); 
-
-// node
+let team = [];
 
 
 
@@ -78,23 +73,35 @@ function runSearch() {
   }
 
   async function addEmp() {
-       const employees = await AddEmployee.addEmpRole()
-        console.table(employees);
-          runSearch()
+    employee= await DB.addEmployee(connection)
+       
+    team.push(employee.connection)
+               runSearch()
 
- 
-        
+
+     console.log(team)
+
 
   
         }
       
-
 
     
     
   runSearch()
 
 
+  
+
+    // async function addEmp({employee}) {
+    //   const added = [];
+    //   const deletes = await insertNewEmp({employee})
+    //   added.push(deletes)
+    //   console.table(added);
+    //   runSearch()
+
+  
+    // }
 
    // const addNew ="INSERT INTO employee (first_name, last_name, role_id, manager_id VALUES ? ('first_name', 'last_name', 'manager', 'role_id', 'manager_id')";
       // [{

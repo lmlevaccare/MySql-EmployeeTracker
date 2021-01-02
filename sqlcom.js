@@ -1,3 +1,5 @@
+
+ 
 const connection = require("./connection");
 
 class DB {
@@ -25,29 +27,49 @@ class DB {
 
 
 }
-
-
-class AddEmployee extends DB {
+class Employee extends DB {
     constructor(connection, firstName = "", lastName = "", roleId = 0, managerId = 0) {
-        super(connection);
+        super(connection)
+        // this.connection = connection;
         this.first_name = firstName;
         this.last_name = lastName;
         this.role_id = roleId;
         this.manager_id = managerId;
+        this.addEmployee = function () {
+            return `${this.first_name}
+    ${this.last_name} ${this.role_id} ${this.manager_id}`
+        }
     }
-
-    addEmpRole(firstName = this.first_name, lastName = this.last_name, roleId = this.role_id, managerId = this.manager_id) {
-        this.connection.query("INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)", [firstName, lastName, roleId, managerId],
-            function (err, res) {
-                if (err) console.log(err);
-            }
-        );
-        return this.connection.query(this.addEmpRole)
-    }
-}
+}       
+       
+var employee = new Employee("INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)"
 
 
-module.exports = typeof AddEmployee | DB;
+);
+console.log(employee);
+
+
+// class AddEmployee extends DB {
+//     constructor(connection, firstName = "", lastName = "", roleId = 0, managerId = 0) {
+//         super(connection);
+//         this.first_name = firstName;
+//         this.last_name = lastName;
+//         this.role_id = roleId;
+//         this.manager_id = managerId;
+//     }
+
+//     addEmpRole(firstName = this.first_name, lastName = this.last_name, roleId = this.role_id, managerId = this.manager_id) {
+//         this.connection.query("INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)", [firstName, lastName, roleId, managerId],
+//             function (err, res) {
+//                 if (err) console.log(err);
+//             }
+//         );
+//         return this.connection.query(this.addEmpRole)
+//     }
+
+
+
+module.exports = typeof Employee | DB;
         
 
     
@@ -55,5 +77,4 @@ module.exports = typeof AddEmployee | DB;
 
 module.exports = new DB(connection);     
 
- 
-//     
+
