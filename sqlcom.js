@@ -1,5 +1,4 @@
-
-
+const inquirer = require("inquirer");
 const connection = require("./connection");
 
 class DB {
@@ -9,98 +8,28 @@ class DB {
   
     }
 
-       empRoles() {
+    empRoles() {
     
-        var query1 = "SELECT employee.first_name, emp_roles.role_title FROM employee LEFT JOIN emp_roles ON employee.role_id=emp_roles.id";
+        var query = "SELECT employee.first_name, emp_roles.role_title FROM employee LEFT JOIN emp_roles ON employee.role_id=emp_roles.id";
 
-        return this.connection.query(query1)
+        return this.connection.query(query)
 
     }
-    
     mangRoles() {
         var query2 = "SELECT * FROM department INNER JOIN emp_roles ON department.id=emp_roles.id";
            
         return this.connection.query(query2)
     }
 
-
-
-
-}
-class Employee extends DB {
-    constructor(connection, firstName = "", lastName = "", roleId = 3, managerId = 2) {
-        super(connection)
-        // this.connection = connection;
-        this.first_name = firstName;
-        this.last_name = lastName;
-        this.role_id = roleId;
-        this.manager_id = managerId;
-    }
-
-    addEmployee() {
-        let employee = new Employee("INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)");
-        return this.connection(employee)(`${this.first_name}
-    ${this.last_name} ${this.role_id} ${this.manager_id}`);
-    
+  
+    addNewEmp() {
+        var query3 = "INSERT INTO employee SET ?",
+          
+       query3=connection.query(query3)
 
     }
-    // addEmployee()
 
-
- remove (_role_id) {
-       
-        var query = ("DELETE FROM emp_roles WHERE ?",
-        {
-            role_id: 1
-        });
-             
-        return this.connection.query(query);
-     
-    };
-   
 }
-// remove()
 
-
-    
-
-
-
-module.exports = typeof Employee | DB;
-        
-
-    
-
-
-module.exports = new DB(connection);     
-
-
-   
-
-
-       
-// var employee1 = new Employee("INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (Victoria, Beckham, 2, 4)");
-
-
-
-
-// class AddEmployee extends DB {
-//     constructor(connection, firstName = "", lastName = "", roleId = 0, managerId = 0) {
-//         super(connection);
-//         this.first_name = firstName;
-//         this.last_name = lastName;
-//         this.role_id = roleId;
-//         this.manager_id = managerId;
-//     }
-
-//     addEmpRole(firstName = this.first_name, lastName = this.last_name, roleId = this.role_id, managerId = this.manager_id) {
-//         this.connection.query("INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)", [firstName, lastName, roleId, managerId],
-//             function (err, res) {
-//                 if (err) console.log(err);
-//             }
-//         );
-//         return this.connection.query(this.addEmpRole)
-//     }
-
-
+module.exports = new DB(connection);  
 
